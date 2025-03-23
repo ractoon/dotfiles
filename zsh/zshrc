@@ -1,11 +1,3 @@
-#
-#                          ⢸⣦⡈⠻⣿⣿⣿⣶⣄
-#                          ⢸⣿⣿⣦⡈⠻⣿⣿⣿⣷⣄
-#                    ⣀⣀⣀⣀⣀⣀⣼⣿⣿⣿⣿ ⠈⠻⣿⣿⣿⣷⣄
-#                    ⠈⠻⣿⣿⣿⣿⣿⡿⠿⠛⠁   ⠈⠻⢿⣿⣿⣷⣄
-#
-# Personal zsh configuration of Jess Archer <jess@jessarcher.com>
-
 #--------------------------------------------------------------------------
 # Oh My Zsh
 #--------------------------------------------------------------------------
@@ -52,7 +44,7 @@ path=(
     $HOME/.cargo/bin
     ./vendor/bin
     $HOME/.local/share/bob/nvim-bin
-    $HOME/Code/jessarcher/dotfiles/scripts
+    $HOME/Code/dotfiles/scripts
     ${ANDROID_HOME}tools/
     ${ANDROID_HOME}platform-tools/
     $path
@@ -71,6 +63,9 @@ zstyle ':completion:*:complete:(cd|pushd):*' tag-order \
 
 export EDITOR=nvim
 export GIT_EDITOR=nvim
+export PAGER="less"
+export LESS="-R -F -X --mouse --wheel-lines=3"
+export GIT_PAGER="less"
 export NVIM_LISTEN_ADDRESS=/tmp/nvimsocket
 export ARTISAN_OPEN_ON_MAKE_EDITOR=nvr
 export FZF_DEFAULT_COMMAND='ag -u -g ""'
@@ -144,6 +139,9 @@ composer-github() {
 # Miscellaneous
 #--------------------------------------------------------------------------
 
+export GPG_TTY=$(tty)
+export GNUPGHOME="$HOME/.gnupg"
+
 ### Fix slowness of pastes with zsh-syntax-highlighting.zsh
 pasteinit() {
   OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
@@ -157,13 +155,10 @@ zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 ### Fix slowness of pastes
 
-if [ -e /home/jess/.nix-profile/etc/profile.d/nix.sh ]; then . /home/jess/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -e /home/ractoon/.nix-profile/etc/profile.d/nix.sh ]; then . /home/ractoon/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
-    ~/Code/jessarcher/dotfiles/scripts/login.sh
-fi
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # vim: nospell
