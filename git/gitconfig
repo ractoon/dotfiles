@@ -91,3 +91,9 @@
     rebase = false
 [init]
     defaultBranch = main
+[gpg]
+	program = /opt/local/bin/gpg
+[user]
+	signingkey = 3AFA65F36BDEE631
+	name = ractoon
+	email = ractoon@gmail.com
